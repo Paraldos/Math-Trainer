@@ -14,6 +14,10 @@
 html {
   font-size: 30px;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
 
 body {
@@ -72,4 +76,12 @@ SELECT SCREEN
 
 .option_li:hover {
   transform: scale(1.1);
+}
+
+.correct {
+  background: green;
+}
+
+.wrong {
+  background: red;
 }
