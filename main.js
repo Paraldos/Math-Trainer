@@ -33,7 +33,6 @@ function buildScreen() {
   let task = mathProblem();
   redoTask(`${task.a} + ${task.b} = ?`);
   placeOptions();
-  placeCorrect(task.c);
 }
 buildScreen();
 
@@ -73,31 +72,28 @@ function redoTask(x) {
 
 ////////////////////////////////////////
 function placeOptions() {
-  let x = [];
+  option_li.forEach(element => {
+    element.classList.remove("wrong");
+  });
 
-  while (x.length < option_li.length) {
-    let y = Math.floor(Math.random() * (game.lvl * 5));
-    if (x.includes(y)) {
-    } else {
-      x.push(y);
+  let optList = [];
+
+  while (optList.length < option_li.length) {
+    let random = Math.floor(Math.random() * (game.lvl * 5));
+    if (!optList.includes(random)) {
+      optList.push(random);
     }
   }
 
-  for (let i = 0; i < option_li.length; i++) {
-    option_li[i].innerText = x[i];
-    option_li[i].value = x[i];
+  if (!optList.includes(game.solution)) {
+    let random = Math.floor(Math.random() * option_li.length);
+    optList[random] = game.solution;
   }
-}
 
-////////////////////////////////////////
-function placeCorrect() {
-  option_li.forEach(element => {
-    console.log(element);
-  });
-
-  let x = Math.floor(Math.random() * option_li.length);
-  option_li[x].innerText = game.solution;
-  option_li[x].value = game.solution;
+  for (let i = 0; i < option_li.length; i++) {
+    option_li[i].innerText = optList[i];
+    option_li[i].value = optList[i];
+  }
 }
 
 /* =====================
@@ -115,7 +111,6 @@ function click(element) {
 ////////////////////////////////////////
 function win(element) {
   game.score += 10;
-  element.classList.add("correct");
   buildScreen();
 }
 
